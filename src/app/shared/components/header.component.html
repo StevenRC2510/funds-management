@@ -1,0 +1,43 @@
+<header class="bg-gray-900 text-white shadow-lg">
+  <!-- Desktop header -->
+  <div class="mx-auto hidden max-w-7xl items-center justify-between px-6 py-4 md:flex">
+    <span class="text-xl font-bold tracking-tight">BTG Pactual</span>
+
+    <nav class="flex gap-1">
+      @for (item of navItems; track item.path) {
+        <a
+          [routerLink]="item.path"
+          routerLinkActive="bg-white/15"
+          class="flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-colors hover:bg-white/10"
+        >
+          <lucide-icon [img]="item.icon" [size]="18"></lucide-icon>
+          {{ item.label }}
+        </a>
+      }
+    </nav>
+
+    <app-balance-display />
+  </div>
+
+  <!-- Mobile header -->
+  <div class="flex items-center justify-between px-4 py-3 md:hidden">
+    <span class="text-lg font-bold">BTG Pactual</span>
+    <app-balance-display />
+  </div>
+</header>
+
+<!-- Mobile bottom navigation -->
+<nav
+  class="fixed bottom-0 left-0 z-40 flex w-full border-t border-gray-200 bg-white md:hidden"
+>
+  @for (item of navItems; track item.path) {
+    <a
+      [routerLink]="item.path"
+      routerLinkActive="text-blue-600"
+      class="flex flex-1 flex-col items-center gap-1 py-3 text-xs font-medium text-gray-500 transition-colors"
+    >
+      <lucide-icon [img]="item.icon" [size]="20"></lucide-icon>
+      {{ item.label }}
+    </a>
+  }
+</nav>
