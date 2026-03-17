@@ -7,6 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "api": "json-server --watch db.json --port 3000",
+    "dev": "concurrently \"npm run api\" \"npm run start\"",
     "serve:ssr:funds-management": "node dist/funds-management/server/server.mjs"
   },
   "private": true,
@@ -31,7 +33,9 @@
     "@tailwindcss/postcss": "^4.1.12",
     "@types/express": "^5.0.1",
     "@types/node": "^20.17.19",
+    "concurrently": "^9.2.1",
     "jsdom": "^28.0.0",
+    "json-server": "^1.0.0-beta.13",
     "postcss": "^8.5.3",
     "prettier": "^3.8.1",
     "tailwindcss": "^4.1.12",
