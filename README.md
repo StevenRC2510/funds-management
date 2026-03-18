@@ -1,59 +1,99 @@
-# FundsManagement
+# BTG Pactual - Gestión de Fondos de Inversión
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.2.
+Aplicación SPA para la gestión de fondos de inversión (FPV y FIC), desarrollada con Angular 21 como prueba técnica para BTG Pactual.
 
-## Development server
+## Funcionalidades
 
-To start a local development server, run:
+- **Catálogo de fondos**: visualización y filtrado por categoría (FPV/FIC)
+- **Suscripción a fondos**: con selección de método de notificación (Email/SMS) y validación de saldo mínimo
+- **Portafolio**: visualización de suscripciones activas con opción de cancelación
+- **Historial de transacciones**: registro cronológico de aperturas y cancelaciones
+- **Diseño responsivo**: desktop (tabla) y mobile (cards + bottom navigation)
 
-```bash
-ng serve
-```
+## Tecnologías
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- **Angular 21** — Standalone components, Signals, `httpResource`
+- **TypeScript 5.9** — Strict mode
+- **Tailwind CSS 4** — Utility-first styling
+- **Vitest 4** — Unit testing
+- **json-server** — Mock REST API
+- **lucide-angular** — Iconos
 
-## Code scaffolding
+## Requisitos previos
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- Node.js >= 18
+- npm >= 9
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+## Instalación
 
 ```bash
-ng build
+git clone <repo-url>
+cd funds-management
+npm install
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Ejecución
 
 ```bash
-ng test
+# Iniciar json-server (puerto 3000) + Angular dev server (puerto 4200)
+npm run dev
 ```
 
-## Running end-to-end tests
+Abrir [http://localhost:4200](http://localhost:4200) en el navegador.
 
-For end-to-end (e2e) testing, run:
+### Comandos individuales
 
 ```bash
-ng e2e
+# Solo Angular dev server
+npm start
+
+# Solo json-server
+npm run api
+
+# Build de producción
+npm run build
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Tests
 
-## Additional Resources
+```bash
+npm test
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Estructura del proyecto
+
+```
+src/app/
+├── core/
+│   ├── interceptors/       # HTTP interceptors (base URL, error handling)
+│   ├── models/             # Interfaces y tipos (Fund, User, Subscription, Transaction)
+│   └── services/           # Servicios de datos (Fund, User, Subscription, Transaction, Notification)
+├── features/
+│   ├── funds/              # Catálogo de fondos + flujo de suscripción
+│   ├── portfolio/          # Portafolio de suscripciones activas
+│   └── history/            # Historial de transacciones
+└── shared/
+    ├── components/         # Componentes reutilizables (Header, Toast, ConfirmDialog, etc.)
+    └── pipes/              # CopCurrencyPipe
+```
+
+## Arquitectura
+
+- **State management**: Angular Signals como fuente de verdad en servicios
+- **Data fetching**: `httpResource` para lectura, `HttpClient` para mutaciones
+- **Operaciones multi-paso**: `concatMap` encadenado (POST suscripción → PATCH balance → POST transacción)
+- **Componentes**: `ChangeDetectionStrategy.OnPush`, inputs/outputs con signal API
+- **Routing**: Lazy loading con `loadComponent`
+
+## API (json-server)
+
+| Método | Endpoint             | Descripción                    |
+|--------|----------------------|--------------------------------|
+| GET    | /funds               | Listar fondos disponibles      |
+| GET    | /user                | Obtener datos del usuario      |
+| PATCH  | /user                | Actualizar saldo               |
+| GET    | /subscriptions       | Listar suscripciones activas   |
+| POST   | /subscriptions       | Crear suscripción              |
+| DELETE | /subscriptions/:id   | Cancelar suscripción           |
+| GET    | /transactions        | Listar transacciones           |
+| POST   | /transactions        | Registrar transacción          |
