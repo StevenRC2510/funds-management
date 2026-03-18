@@ -1,0 +1,60 @@
+<div class="mb-6">
+  <h1 class="mb-1 text-2xl font-bold text-gray-900">Historial de transacciones</h1>
+  <p class="text-sm text-gray-500">Registro de todas las aperturas y cancelaciones realizadas</p>
+</div>
+
+@if (transactionService.loading()) {
+  <app-loading-spinner />
+} @else if (transactionService.sortedTransactions().length === 0) {
+  <app-empty-state message="No hay transacciones registradas aún." />
+} @else {
+  <!-- Desktop table -->
+  <div class="hidden overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm md:block">
+    <table class="w-full text-left text-sm">
+      <thead class="border-b border-gray-200 bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 font-semibold text-gray-700">Tipo</th>
+          <th class="px-6 py-3 font-semibold text-gray-700">Fondo</th>
+          <th class="px-6 py-3 font-semibold text-gray-700">Monto</th>
+          <th class="px-6 py-3 font-semibold text-gray-700">Fecha</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100">
+        @for (tx of transactionService.sortedTransactions(); track tx.id) {
+          <tr class="hover:bg-gray-50">
+            <td class="px-6 py-4">
+              <span
+                class="rounded-full px-3 py-1 text-xs font-semibold"
+                [class]="typeConfig[tx.type].classes"
+              >
+                {{ typeConfig[tx.type].label }}
+              </span>
+            </td>
+            <td class="px-6 py-4 font-medium text-gray-900">{{ tx.fundName }}</td>
+            <td class="px-6 py-4 text-gray-700">{{ tx.amount | copCurrency }}</td>
+            <td class="px-6 py-4 text-gray-500">{{ tx.timestamp | date: 'dd/MM/yyyy HH:mm' }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Mobile cards -->
+  <div class="flex flex-col gap-3 md:hidden">
+    @for (tx of transactionService.sortedTransactions(); track tx.id) {
+      <div class="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+        <div class="mb-3 flex items-center justify-between">
+          <span
+            class="rounded-full px-3 py-1 text-xs font-semibold"
+            [class]="typeConfig[tx.type].classes"
+          >
+            {{ typeConfig[tx.type].label }}
+          </span>
+          <span class="text-xs text-gray-500">{{ tx.timestamp | date: 'dd/MM/yyyy HH:mm' }}</span>
+        </div>
+        <p class="text-sm font-medium text-gray-900">{{ tx.fundName }}</p>
+        <p class="mt-1 text-sm text-gray-700">{{ tx.amount | copCurrency }}</p>
+      </div>
+    }
+  </div>
+}
