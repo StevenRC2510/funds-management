@@ -1,6 +1,7 @@
-<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" (click)="cancelled.emit()">
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 animate-in fade-in" (click)="cancelled.emit()">
   <div
-    class="w-full max-w-md rounded-xl bg-white p-6 shadow-xl"
+    #dialogPanel
+    class="w-full max-w-md rounded-xl bg-white p-6 shadow-xl animate-in zoom-in-95 fade-in duration-200"
     role="dialog"
     aria-modal="true"
     aria-labelledby="subscribe-dialog-title"
@@ -9,9 +10,14 @@
     <h2 id="subscribe-dialog-title" class="mb-1 text-lg font-bold text-gray-900">Suscribirse al fondo</h2>
     <p class="mb-5 text-sm text-gray-500">{{ fund().name }}</p>
 
-    <div class="mb-5 rounded-lg bg-gray-50 p-4">
+    <div class="mb-3 rounded-lg bg-gray-50 p-4">
       <span class="text-sm text-gray-500">Monto a invertir</span>
       <p class="text-xl font-bold text-gray-900">{{ fund().minimumAmount | copCurrency }}</p>
+    </div>
+
+    <div class="mb-5 rounded-lg bg-blue-50 p-4">
+      <span class="text-sm text-blue-600">Tu saldo disponible</span>
+      <p class="text-xl font-bold text-blue-700">{{ balance() | copCurrency }}</p>
     </div>
 
     <fieldset class="mb-6">
@@ -22,7 +28,7 @@
           <button
             type="button"
             (click)="selectMethod(option.value)"
-            class="flex-1 rounded-lg border-2 px-4 py-3 text-sm font-semibold transition-colors"
+            class="flex-1 rounded-lg border-2 px-4 py-3 text-sm font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
             [class]="selectedMethod() === option.value
               ? 'border-blue-600 bg-blue-50 text-blue-700'
               : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300'"
@@ -36,15 +42,22 @@
     <div class="flex gap-3">
       <button
         (click)="cancelled.emit()"
-        class="flex-1 rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-50"
+        [disabled]="loading()"
+        class="flex-1 rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-50 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
       >
         Cancelar
       </button>
       <button
         (click)="confirm()"
-        class="flex-1 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
+        [disabled]="loading()"
+        class="flex-1 items-center justify-center rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-700 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:bg-blue-400 inline-flex gap-2"
       >
-        Confirmar
+        @if (loading()) {
+          <span class="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" role="status" aria-label="Cargando"></span>
+          Procesando...
+        } @else {
+          Confirmar
+        }
       </button>
     </div>
   </div>

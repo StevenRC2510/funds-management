@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
 
 import type { Subscription } from '../../core/models';
 import { SubscriptionService } from '../../core/services/subscription.service';
@@ -15,6 +16,7 @@ import { SubscriptionCardComponent } from './subscription-card.component';
 })
 export class PortfolioPage {
   protected readonly subscriptionService = inject(SubscriptionService);
+  private readonly router = inject(Router);
   protected readonly subscriptionToCancel = signal<Subscription | null>(null);
 
   protected openCancelDialog(subscription: Subscription): void {
@@ -31,5 +33,9 @@ export class PortfolioPage {
       this.subscriptionService.cancel(subscription);
       this.subscriptionToCancel.set(null);
     }
+  }
+
+  protected navigateToFunds(): void {
+    this.router.navigate(['/funds']);
   }
 }

@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@a
 import type { Fund, FundCategory, NotificationMethod } from '../../core/models';
 import { FundService } from '../../core/services/fund.service';
 import { SubscriptionService } from '../../core/services/subscription.service';
+import { UserService } from '../../core/services/user.service';
 import { LoadingSpinnerComponent } from '../../shared/components/loading-spinner.component';
 import { EmptyStateComponent } from '../../shared/components/empty-state.component';
 import { FundCardComponent } from './fund-card.component';
@@ -25,6 +26,7 @@ const CATEGORY_FILTERS: { value: CategoryFilter; label: string }[] = [
 export class FundsListPage {
   protected readonly fundService = inject(FundService);
   protected readonly subscriptionService = inject(SubscriptionService);
+  protected readonly userService = inject(UserService);
 
   protected readonly categoryFilters = CATEGORY_FILTERS;
   protected readonly selectedCategory = signal<CategoryFilter>('ALL');

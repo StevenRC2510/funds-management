@@ -6,12 +6,20 @@
 @if (transactionService.loading()) {
   <app-loading-spinner />
 } @else if (transactionService.error()) {
-  <app-empty-state message="Error al cargar las transacciones. Intente de nuevo." />
+  <div class="flex flex-col items-center gap-4 py-16">
+    <app-empty-state message="Error al cargar las transacciones. Intente de nuevo." />
+    <button
+      (click)="transactionService.reload()"
+      class="rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-700 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+    >
+      Reintentar
+    </button>
+  </div>
 } @else if (transactionService.sortedTransactions().length === 0) {
   <app-empty-state message="No hay transacciones registradas aún." />
 } @else {
   <!-- Desktop table -->
-  <div class="hidden overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm md:block">
+  <div class="hidden overflow-x-auto rounded-xl border border-gray-200 bg-white shadow-sm md:block">
     <table class="w-full text-left text-sm">
       <thead class="border-b border-gray-200 bg-gray-50">
         <tr>

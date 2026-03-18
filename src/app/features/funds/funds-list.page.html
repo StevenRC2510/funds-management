@@ -7,7 +7,8 @@
   @for (filter of categoryFilters; track filter.value) {
     <button
       (click)="selectCategory(filter.value)"
-      class="rounded-full px-4 py-2 text-sm font-semibold transition-colors"
+      [attr.aria-pressed]="selectedCategory() === filter.value"
+      class="rounded-full px-4 py-2 text-sm font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
       [class]="selectedCategory() === filter.value
         ? 'bg-blue-600 text-white'
         : 'bg-gray-100 text-gray-700 hover:bg-gray-200'"
@@ -20,7 +21,15 @@
 @if (fundService.loading()) {
   <app-loading-spinner />
 } @else if (fundService.error()) {
-  <app-empty-state message="Error al cargar los fondos. Intente de nuevo." />
+  <div class="flex flex-col items-center gap-4 py-16">
+    <app-empty-state message="Error al cargar los fondos. Intente de nuevo." />
+    <button
+      (click)="fundService.reload()"
+      class="rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-700 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+    >
+      Reintentar
+    </button>
+  </div>
 } @else if (filteredFunds().length === 0) {
   <app-empty-state message="No hay fondos disponibles en esta categoría." />
 } @else {
@@ -39,6 +48,8 @@
 @if (selectedFund(); as fund) {
   <app-subscribe-dialog
     [fund]="fund"
+    [loading]="subscriptionService.operationLoading()"
+    [balance]="userService.balance()"
     (confirmed)="confirmSubscription($event)"
     (cancelled)="closeSubscribeDialog()"
   />

@@ -6,15 +6,31 @@
 @if (subscriptionService.loading()) {
   <app-loading-spinner />
 } @else if (subscriptionService.error()) {
-  <app-empty-state message="Error al cargar las suscripciones. Intente de nuevo." />
+  <div class="flex flex-col items-center gap-4 py-16">
+    <app-empty-state message="Error al cargar las suscripciones. Intente de nuevo." />
+    <button
+      (click)="subscriptionService.reload()"
+      class="rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-700 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+    >
+      Reintentar
+    </button>
+  </div>
 } @else if (subscriptionService.subscriptions().length === 0) {
-  <app-empty-state message="No tienes suscripciones activas. Explora los fondos disponibles para comenzar." />
+  <div class="flex flex-col items-center gap-4 py-16">
+    <app-empty-state message="No tienes suscripciones activas. Explora los fondos disponibles para comenzar." />
+    <button
+      (click)="navigateToFunds()"
+      class="rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-blue-700 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+    >
+      Explorar fondos
+    </button>
+  </div>
 } @else {
   <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
     @for (sub of subscriptionService.subscriptions(); track sub.id) {
       <app-subscription-card
         [subscription]="sub"
-        [disabled]="subscriptionService.loading()"
+        [disabled]="subscriptionService.operationLoading()"
         (cancel)="openCancelDialog(sub)"
       />
     }
@@ -26,6 +42,7 @@
     title="Cancelar suscripción"
     [message]="'¿Está seguro que desea cancelar su suscripción al fondo ' + sub.fundName + '?'"
     confirmLabel="Sí, cancelar"
+    [loading]="subscriptionService.operationLoading()"
     (confirmed)="confirmCancel()"
     (cancelled)="closeCancelDialog()"
   />

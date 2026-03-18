@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideRouter } from '@angular/router';
 
 import type { Subscription } from '../../core/models';
 import { PortfolioPage } from './portfolio.page';
@@ -21,7 +22,7 @@ describe('PortfolioPage', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [PortfolioPage],
-      providers: [provideHttpClient(), provideHttpClientTesting()],
+      providers: [provideHttpClient(), provideHttpClientTesting(), provideRouter([])],
     }).compileComponents();
 
     httpMock = TestBed.inject(HttpTestingController);

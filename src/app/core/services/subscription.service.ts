@@ -21,6 +21,7 @@ export class SubscriptionService {
   private readonly _operationLoading = signal(false);
 
   readonly subscriptions = computed(() => this.subscriptionsResource.value() ?? []);
+  readonly operationLoading = this._operationLoading.asReadonly();
   readonly loading = computed(
     () => this.subscriptionsResource.isLoading() || this._operationLoading(),
   );
