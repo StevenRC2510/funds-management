@@ -6,36 +6,74 @@
   },
   "funds": [
     {
-      "id": 1,
+      "id": "1",
       "name": "FPV_BTG_PACTUAL_RECAUDADORA",
       "minimumAmount": 75000,
       "category": "FPV"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "FPV_BTG_PACTUAL_ECOPETROL",
       "minimumAmount": 125000,
       "category": "FPV"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "DEUDAPRIVADA",
       "minimumAmount": 50000,
       "category": "FIC"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "FDO-ACCIONES",
       "minimumAmount": 250000,
       "category": "FIC"
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "FPV_BTG_PACTUAL_DINAMICA",
       "minimumAmount": 100000,
       "category": "FPV"
     }
   ],
   "subscriptions": [],
-  "transactions": []
+  "transactions": [
+    {
+      "id": "082e",
+      "fundId": "1",
+      "fundName": "FPV_BTG_PACTUAL_RECAUDADORA",
+      "type": "subscription",
+      "amount": 75000,
+      "notificationMethod": "sms",
+      "timestamp": "2026-03-18T01:21:51.940Z"
+    },
+    {
+      "id": "2310",
+      "fundId": "1",
+      "fundName": "FPV_BTG_PACTUAL_RECAUDADORA",
+      "type": "cancellation",
+      "amount": 75000,
+      "notificationMethod": null,
+      "timestamp": "2026-03-18T01:22:01.763Z"
+    },
+    {
+      "id": "22ed",
+      "fundId": "2",
+      "fundName": "FPV_BTG_PACTUAL_ECOPETROL",
+      "type": "subscription",
+      "amount": 125000,
+      "notificationMethod": "email",
+      "timestamp": "2026-03-18T01:41:53.491Z"
+    },
+    {
+      "id": "63bc",
+      "fundId": "2",
+      "fundName": "FPV_BTG_PACTUAL_ECOPETROL",
+      "type": "cancellation",
+      "amount": 125000,
+      "notificationMethod": null,
+      "timestamp": "2026-03-18T01:45:35.177Z"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
