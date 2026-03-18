@@ -1,0 +1,30 @@
+<div class="mb-6">
+  <h1 class="mb-1 text-2xl font-bold text-gray-900">Mi portafolio</h1>
+  <p class="text-sm text-gray-500">Fondos en los que estás suscrito actualmente</p>
+</div>
+
+@if (subscriptionService.loading()) {
+  <app-loading-spinner />
+} @else if (subscriptionService.subscriptions().length === 0) {
+  <app-empty-state message="No tienes suscripciones activas. Explora los fondos disponibles para comenzar." />
+} @else {
+  <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    @for (sub of subscriptionService.subscriptions(); track sub.id) {
+      <app-subscription-card
+        [subscription]="sub"
+        [disabled]="subscriptionService.loading()"
+        (cancel)="openCancelDialog(sub)"
+      />
+    }
+  </div>
+}
+
+@if (subscriptionToCancel(); as sub) {
+  <app-confirm-dialog
+    title="Cancelar suscripción"
+    [message]="'¿Está seguro que desea cancelar su suscripción al fondo ' + sub.fundName + '?'"
+    confirmLabel="Sí, cancelar"
+    (confirmed)="confirmCancel()"
+    (cancelled)="closeCancelDialog()"
+  />
+}

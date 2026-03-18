@@ -2,40 +2,77 @@
   "user": {
     "id": 1,
     "name": "Cliente BTG",
-    "balance": 500000
+    "balance": 300000
   },
   "funds": [
     {
-      "id": 1,
+      "id": "1",
       "name": "FPV_BTG_PACTUAL_RECAUDADORA",
       "minimumAmount": 75000,
       "category": "FPV"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "FPV_BTG_PACTUAL_ECOPETROL",
       "minimumAmount": 125000,
       "category": "FPV"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "DEUDAPRIVADA",
       "minimumAmount": 50000,
       "category": "FIC"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "FDO-ACCIONES",
       "minimumAmount": 250000,
       "category": "FIC"
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "FPV_BTG_PACTUAL_DINAMICA",
       "minimumAmount": 100000,
       "category": "FPV"
     }
   ],
-  "subscriptions": [],
-  "transactions": []
+  "subscriptions": [
+    {
+      "id": "dac3",
+      "fundId": "1",
+      "fundName": "FPV_BTG_PACTUAL_RECAUDADORA",
+      "amount": 75000,
+      "notificationMethod": "sms",
+      "subscribedAt": "2026-03-18T00:34:13.778Z"
+    },
+    {
+      "id": "6bcb",
+      "fundId": "2",
+      "fundName": "FPV_BTG_PACTUAL_ECOPETROL",
+      "amount": 125000,
+      "notificationMethod": "email",
+      "subscribedAt": "2026-03-18T00:34:19.645Z"
+    }
+  ],
+  "transactions": [
+    {
+      "id": "0950",
+      "fundId": "1",
+      "fundName": "FPV_BTG_PACTUAL_RECAUDADORA",
+      "type": "subscription",
+      "amount": 75000,
+      "notificationMethod": "sms",
+      "timestamp": "2026-03-18T00:34:13.778Z"
+    },
+    {
+      "id": "c185",
+      "fundId": "2",
+      "fundName": "FPV_BTG_PACTUAL_ECOPETROL",
+      "type": "subscription",
+      "amount": 125000,
+      "notificationMethod": "email",
+      "timestamp": "2026-03-18T00:34:19.645Z"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }
