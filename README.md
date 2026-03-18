@@ -1,30 +1,30 @@
-# BTG Pactual - Gestión de Fondos de Inversión
+# BTG Pactual - Investment Funds Management
 
-Aplicación SPA para la gestión de fondos de inversión (FPV y FIC), desarrollada con Angular 21 como prueba técnica para BTG Pactual.
+SPA for managing investment funds (FPV and FIC), built with Angular 21 as a technical test for BTG Pactual.
 
-## Funcionalidades
+## Features
 
-- **Catálogo de fondos**: visualización y filtrado por categoría (FPV/FIC)
-- **Suscripción a fondos**: con selección de método de notificación (Email/SMS) y validación de saldo mínimo
-- **Portafolio**: visualización de suscripciones activas con opción de cancelación
-- **Historial de transacciones**: registro cronológico de aperturas y cancelaciones
-- **Diseño responsivo**: desktop (tabla) y mobile (cards + bottom navigation)
+- **Fund catalog**: browse and filter by category (FPV/FIC)
+- **Fund subscription**: select notification method (Email/SMS) with minimum balance validation
+- **Portfolio**: view active subscriptions with cancellation option
+- **Transaction history**: chronological log of subscriptions and cancellations
+- **Responsive design**: desktop (table) and mobile (cards + bottom navigation)
 
-## Tecnologías
+## Tech Stack
 
 - **Angular 21** — Standalone components, Signals, `httpResource`
 - **TypeScript 5.9** — Strict mode
 - **Tailwind CSS 4** — Utility-first styling
 - **Vitest 4** — Unit testing
 - **json-server** — Mock REST API
-- **lucide-angular** — Iconos
+- **lucide-angular** — Icons
 
-## Requisitos previos
+## Prerequisites
 
 - Node.js >= 18
 - npm >= 9
 
-## Instalación
+## Setup
 
 ```bash
 git clone <repo-url>
@@ -32,25 +32,25 @@ cd funds-management
 npm install
 ```
 
-## Ejecución
+## Running
 
 ```bash
-# Iniciar json-server (puerto 3000) + Angular dev server (puerto 4200)
+# Start json-server (port 3000) + Angular dev server (port 4200)
 npm run dev
 ```
 
-Abrir [http://localhost:4200](http://localhost:4200) en el navegador.
+Open [http://localhost:4200](http://localhost:4200) in your browser.
 
-### Comandos individuales
+### Individual commands
 
 ```bash
-# Solo Angular dev server
+# Angular dev server only
 npm start
 
-# Solo json-server
+# json-server only
 npm run api
 
-# Build de producción
+# Production build
 npm run build
 ```
 
@@ -60,40 +60,40 @@ npm run build
 npm test
 ```
 
-## Estructura del proyecto
+## Project Structure
 
 ```
 src/app/
 ├── core/
 │   ├── interceptors/       # HTTP interceptors (base URL, error handling)
-│   ├── models/             # Interfaces y tipos (Fund, User, Subscription, Transaction)
-│   └── services/           # Servicios de datos (Fund, User, Subscription, Transaction, Notification)
+│   ├── models/             # Interfaces and types (Fund, User, Subscription, Transaction)
+│   └── services/           # Data services (Fund, User, Subscription, Transaction, Notification)
 ├── features/
-│   ├── funds/              # Catálogo de fondos + flujo de suscripción
-│   ├── portfolio/          # Portafolio de suscripciones activas
-│   └── history/            # Historial de transacciones
+│   ├── funds/              # Fund catalog + subscription flow
+│   ├── portfolio/          # Active subscriptions portfolio
+│   └── history/            # Transaction history
 └── shared/
-    ├── components/         # Componentes reutilizables (Header, Toast, ConfirmDialog, etc.)
+    ├── components/         # Reusable components (Header, Toast, ConfirmDialog, etc.)
     └── pipes/              # CopCurrencyPipe
 ```
 
-## Arquitectura
+## Architecture
 
-- **State management**: Angular Signals como fuente de verdad en servicios
-- **Data fetching**: `httpResource` para lectura, `HttpClient` para mutaciones
-- **Operaciones multi-paso**: `concatMap` encadenado (POST suscripción → PATCH balance → POST transacción)
-- **Componentes**: `ChangeDetectionStrategy.OnPush`, inputs/outputs con signal API
-- **Routing**: Lazy loading con `loadComponent`
+- **State management**: Angular Signals as single source of truth in services
+- **Data fetching**: `httpResource` for reads, `HttpClient` for mutations
+- **Multi-step operations**: chained `concatMap` (POST subscription → PATCH balance → POST transaction)
+- **Components**: `ChangeDetectionStrategy.OnPush`, signal-based inputs/outputs
+- **Routing**: lazy loading with `loadComponent`
 
 ## API (json-server)
 
-| Método | Endpoint             | Descripción                    |
+| Method | Endpoint             | Description                    |
 |--------|----------------------|--------------------------------|
-| GET    | /funds               | Listar fondos disponibles      |
-| GET    | /user                | Obtener datos del usuario      |
-| PATCH  | /user                | Actualizar saldo               |
-| GET    | /subscriptions       | Listar suscripciones activas   |
-| POST   | /subscriptions       | Crear suscripción              |
-| DELETE | /subscriptions/:id   | Cancelar suscripción           |
-| GET    | /transactions        | Listar transacciones           |
-| POST   | /transactions        | Registrar transacción          |
+| GET    | /funds               | List available funds           |
+| GET    | /user                | Get user data                  |
+| PATCH  | /user                | Update balance                 |
+| GET    | /subscriptions       | List active subscriptions      |
+| POST   | /subscriptions       | Create subscription            |
+| DELETE | /subscriptions/:id   | Cancel subscription            |
+| GET    | /transactions        | List transactions              |
+| POST   | /transactions        | Record transaction             |
