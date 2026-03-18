@@ -10,7 +10,6 @@ const NOTIFICATION_OPTIONS: { value: NotificationMethod; label: string }[] = [
 
 @Component({
   selector: 'app-subscribe-dialog',
-  standalone: true,
   imports: [CopCurrencyPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './subscribe-dialog.component.html',

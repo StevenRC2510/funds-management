@@ -5,6 +5,8 @@
 
 @if (subscriptionService.loading()) {
   <app-loading-spinner />
+} @else if (subscriptionService.error()) {
+  <app-empty-state message="Error al cargar las suscripciones. Intente de nuevo." />
 } @else if (subscriptionService.subscriptions().length === 0) {
   <app-empty-state message="No tienes suscripciones activas. Explora los fondos disponibles para comenzar." />
 } @else {

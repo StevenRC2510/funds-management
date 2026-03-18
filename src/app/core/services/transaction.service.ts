@@ -11,6 +11,7 @@ export class TransactionService {
 
   readonly transactions = computed(() => this.transactionsResource.value() ?? []);
   readonly loading = this.transactionsResource.isLoading;
+  readonly error = this.transactionsResource.error;
 
   readonly sortedTransactions = computed(() =>
     [...this.transactions()].sort(

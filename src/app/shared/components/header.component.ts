@@ -6,7 +6,6 @@ import { BalanceDisplayComponent } from './balance-display.component';
 
 @Component({
   selector: 'app-header',
-  standalone: true,
   imports: [RouterLink, RouterLinkActive, LucideAngularModule, BalanceDisplayComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './header.component.html',

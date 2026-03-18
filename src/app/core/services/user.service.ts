@@ -9,7 +9,7 @@ export class UserService {
   private readonly http = inject(HttpClient);
   private readonly userResource = httpResource<User>(() => '/user');
 
-  readonly user = this.userResource.value;
+  readonly user = computed(() => this.userResource.value());
   readonly loading = this.userResource.isLoading;
   readonly balance = computed(() => this.userResource.value()?.balance ?? 0);
 

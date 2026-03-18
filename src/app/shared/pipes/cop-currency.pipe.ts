@@ -7,7 +7,7 @@ const formatter = new Intl.NumberFormat('es-CO', {
   maximumFractionDigits: 0,
 });
 
-@Pipe({ name: 'copCurrency', standalone: true })
+@Pipe({ name: 'copCurrency' })
 export class CopCurrencyPipe implements PipeTransform {
   transform(value: number | null | undefined): string {
     if (value == null) return '';

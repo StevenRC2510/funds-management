@@ -3,7 +3,6 @@ import { LucideAngularModule, PackageOpen } from 'lucide-angular';
 
 @Component({
   selector: 'app-empty-state',
-  standalone: true,
   imports: [LucideAngularModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './empty-state.component.html',

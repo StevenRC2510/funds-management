@@ -5,6 +5,8 @@
 
 @if (transactionService.loading()) {
   <app-loading-spinner />
+} @else if (transactionService.error()) {
+  <app-empty-state message="Error al cargar las transacciones. Intente de nuevo." />
 } @else if (transactionService.sortedTransactions().length === 0) {
   <app-empty-state message="No hay transacciones registradas aún." />
 } @else {

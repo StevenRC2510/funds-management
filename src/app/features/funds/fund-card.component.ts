@@ -5,7 +5,6 @@ import { CopCurrencyPipe } from '../../shared/pipes/cop-currency.pipe';
 
 @Component({
   selector: 'app-fund-card',
-  standalone: true,
   imports: [CopCurrencyPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './fund-card.component.html',

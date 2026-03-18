@@ -5,7 +5,6 @@ import { CopCurrencyPipe } from '../pipes/cop-currency.pipe';
 
 @Component({
   selector: 'app-balance-display',
-  standalone: true,
   imports: [CopCurrencyPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './balance-display.component.html',

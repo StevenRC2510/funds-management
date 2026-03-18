@@ -9,7 +9,6 @@ import { SubscriptionCardComponent } from './subscription-card.component';
 
 @Component({
   selector: 'app-portfolio',
-  standalone: true,
   imports: [LoadingSpinnerComponent, EmptyStateComponent, ConfirmDialogComponent, SubscriptionCardComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './portfolio.page.html',

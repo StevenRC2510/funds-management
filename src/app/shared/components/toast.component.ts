@@ -17,7 +17,6 @@ const TOAST_CONFIG: Record<ToastType, { icon: typeof CircleCheck; classes: strin
 
 @Component({
   selector: 'app-toast',
-  standalone: true,
   imports: [LucideAngularModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './toast.component.html',

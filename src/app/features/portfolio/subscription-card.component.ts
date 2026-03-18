@@ -6,7 +6,6 @@ import { CopCurrencyPipe } from '../../shared/pipes/cop-currency.pipe';
 
 @Component({
   selector: 'app-subscription-card',
-  standalone: true,
   imports: [DatePipe, CopCurrencyPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './subscription-card.component.html',

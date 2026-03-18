@@ -18,7 +18,6 @@ const CATEGORY_FILTERS: { value: CategoryFilter; label: string }[] = [
 
 @Component({
   selector: 'app-funds-list',
-  standalone: true,
   imports: [LoadingSpinnerComponent, EmptyStateComponent, FundCardComponent, SubscribeDialogComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './funds-list.page.html',

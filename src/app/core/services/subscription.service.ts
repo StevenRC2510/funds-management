@@ -24,6 +24,7 @@ export class SubscriptionService {
   readonly loading = computed(
     () => this.subscriptionsResource.isLoading() || this._operationLoading(),
   );
+  readonly error = this.subscriptionsResource.error;
 
   readonly subscribedFundIds = computed(
     () => new Set(this.subscriptions().map((s) => s.fundId)),
@@ -38,6 +39,8 @@ export class SubscriptionService {
   }
 
   subscribe(fund: Fund, notificationMethod: NotificationMethod): void {
+    if (this._operationLoading()) return;
+
     if (this.isSubscribed(fund.id)) {
       this.notificationService.showError(`Ya se encuentra vinculado al fondo ${fund.name}.`);
       return;
@@ -94,6 +97,8 @@ export class SubscriptionService {
   }
 
   cancel(subscription: Subscription): void {
+    if (this._operationLoading()) return;
+
     const balance = this.userService.balance();
     this._operationLoading.set(true);
 
